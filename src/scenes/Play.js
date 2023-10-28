@@ -6,13 +6,13 @@ class Play extends Phaser.Scene{
 
     create() {
         //play music for background
-        this.bgm = this.sound.add('bg_music',{
-            mute:false,
+        this.bgmusic = this.sound.add('bg_music',{
+            mute: false,
             volume: 1,
             rate: 1,
             loop: true
         });
-        this.bgm.play();
+        this.bgmusic.play();
         
     }
 }
