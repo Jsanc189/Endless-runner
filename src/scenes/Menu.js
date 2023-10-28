@@ -21,7 +21,7 @@ class Menu extends Phaser.Scene{
             fixedWidth: 500
         }
 
-        this.addEventListener = this.add.text(game.config.width/2, game.config.height/2 - borderUISize, 
+        this.title_message = this.add.text(game.config.width/2, game.config.height/2 - borderUISize, 
         'Falling with style', menuConfig).setOrigin(0.5);
     }
 
