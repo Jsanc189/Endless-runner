@@ -23,7 +23,7 @@ class Menu extends Phaser.Scene{
 
         let startConfig = {
             fontFamily: "courier",
-            fontSize: '40px',
+            fontSize: '30px',
             backgroundColor: '#0975B4',
             color: '#000000',
             align: 'center',
@@ -31,7 +31,7 @@ class Menu extends Phaser.Scene{
                 top:5,
                 bottom:5
             },
-            fixedWidth: 700
+            fixedWidth: 500
         }
 
         this.title_message = this.add.text(game.config.width/2, game.config.height/2 - borderUISize, 
@@ -41,8 +41,6 @@ class Menu extends Phaser.Scene{
 
         //define keys
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
     }
 

@@ -11,8 +11,8 @@
 
 let config = {
     type: Phaser.AUTO,
-    width: 700,
-    height: 500,
+    width: 500,
+    height: 700,
     physics: {
         default: 'arcade',
         arcade: {
@@ -40,3 +40,7 @@ let centerY = game.config.height /2;
 
 let gameWidth = game.config.width;
 let gameHeight = game.config.height;
+
+//to allow for cursor (arrow key movment)
+let cursors;
+let playerDirection = 'down'
