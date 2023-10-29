@@ -70,6 +70,7 @@ class Play extends Phaser.Scene{
 
     update() {
         let playerVector = new Phaser.Math.Vector2(0,0);
+        this.sky.tilePositionY += 4;
 
         if(cursors.left.isDown) {
             playerVector.x = -1;
