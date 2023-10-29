@@ -10,13 +10,23 @@
 
 
 let config = {
-    type: Phaser.CANVAS,
+    type: Phaser.AUTO,
     width: 700,
     height: 500,
-    scene: [Menu, Play]
+    physics: {
+        default: 'arcade',
+        arcade: {
+            debug: true,
+            gravity: {
+                x: 0,
+                y: 0
+            }
+        }
+    },
+    scene: [Load, Menu, Play]
 }
 
-let keyLEFT, keyRIGHT;
+let keyLEFT, keyRIGHT, keySPACE;
 
 let game  = new Phaser.Game(config);
 
