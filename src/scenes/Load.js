@@ -29,6 +29,14 @@ class Load extends Phaser.Scene{
         //graphics
         //background
         this.load.image('background', './assets/blue_sky.png');
+        
+        //score items (style points)
+        this.load.image('sunglasses', './assets/sunglasses.png');
+        this.load.image('shirt', './assets/shirt.png');
+        this.load.image('hat', './assets/hat.png');
+
+        //barriers
+        this.load.image('stink', './assets/stink.png');
 
         //character
         this.load.spritesheet('character', './assets/stick-figure-Sheet.png',{

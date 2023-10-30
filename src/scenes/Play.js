@@ -22,6 +22,9 @@ class Play extends Phaser.Scene{
         
         //set the player to not be able to go out of bounds
         this.player.body.setCollideWorldBounds(true);
+
+        //set the player to immovable
+        this.player.body.setImmovable(true);
         
         //set size of the player
         this.player.body.setSize(25,62)
@@ -29,10 +32,16 @@ class Play extends Phaser.Scene{
         //variable to hold player velocity
         this.PLAYER_VELOCITY = 300;
 
+        //variable to hold object velocities
+        this.OBJECT_VELOCITY = 100;
+
+        //variable to hold barrier velocities
+        this.BARRIER_VELOCITY = 1;
+
         //allow for input from arrow keys
         cursors = this.input.keyboard.createCursorKeys();
 
-        //when the player isn't touching anything
+        //when the player isn't touching anything animation
         this.anims.create({
             key: 'fly-down',
             frameRate: 0,
@@ -43,7 +52,7 @@ class Play extends Phaser.Scene{
             })
         })
 
-        //when the player is touching left key
+        //when the player is touching left key animation
         this.anims.create({
             key: 'fly-left',
             frameRate: 0,
@@ -54,7 +63,7 @@ class Play extends Phaser.Scene{
             })
         })
 
-        //when the player is toughing right key
+        //when the player is touching right key animation
         this.anims.create({
             key: 'fly-right',
             frameRate: 0,
@@ -64,6 +73,17 @@ class Play extends Phaser.Scene{
                 end: 2
             })
         })
+
+        //add glasses to the field
+        this.addItem('sunglasses');
+        this.addItem('shirt');
+        this.addItem('hat');
+
+        //add barrier to the field
+        this.addBarrier('stink');
+
+        
+        
         
     }
 
@@ -88,5 +108,48 @@ class Play extends Phaser.Scene{
         this.player.setVelocity(this.PLAYER_VELOCITY * playerVector.x, this.PLAYER_VELOCITY * 0);
 
         this.player.play('fly' + '-' + playerDirection, true);
+
+
     }
+
+
+    addItem(itemName) {
+        //get a random x coordinate to spawn the item
+        let xSpawn = Phaser.Math.Between(50,450)
+
+        //spawn item at the bottom of the screen
+        this.coolItem = this.physics.add.sprite(xSpawn, gameHeight+ 5, itemName).setScale(1);
+       
+        //set the hit box to custom size
+        this.coolItem.body.setSize(26, 10);
+  
+        //sett the velocity of the object
+        this.coolItem.setVelocityY(-this.OBJECT_VELOCITY);
+        
+        //set the items to be immovable
+        this.coolItem.body.setImmovable(true);
+
+
+
+    }
+
+    addBarrier(barrierName) {
+        //get a random x coordinate to spawn the item
+        let xSpawn = Phaser.Math.Between(90, 410);
+
+        //spawn barrier at the bottom of the screen
+        this.barrier = this.physics.add.sprite(xSpawn, gameHeight, barrierName).setScale(.75);
+
+        //set the hit box to custom size
+        this.barrier.body.setSize(90, 25);
+        //set velocity of the barrier
+        this.barrier.setVelocityY(-this.BARRIER_VELOCITY);
+
+        //set the barriers to be immovable
+        this.barrier.body.setImmovable(true);
+    }
+
+    
+
+    
 }
