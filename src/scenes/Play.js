@@ -36,7 +36,7 @@ class Play extends Phaser.Scene{
         this.OBJECT_VELOCITY = 100;
 
         //variable to hold barrier velocities
-        this.BARRIER_VELOCITY = 1;
+        this.BARRIER_VELOCITY = 150;
 
         //allow for input from arrow keys
         cursors = this.input.keyboard.createCursorKeys();
@@ -74,13 +74,12 @@ class Play extends Phaser.Scene{
             })
         })
 
+
         //add glasses to the field
-        this.addItem('sunglasses');
-        this.addItem('shirt');
-        this.addItem('hat');
+        this.glasses = new Items(this, Phaser.Math.Between(50, 450), gameHeight, 'sunglasses', -this.OBJECT_VELOCITY, gameHeight);
 
         //add barrier to the field
-        this.addBarrier('stink');
+        this.barrier = new Barriers(this, Phaser.Math.Between(50, 450), gameHeight, 'stink', -this.BARRIER_VELOCITY, gameHeight);
 
         
         
@@ -109,47 +108,14 @@ class Play extends Phaser.Scene{
 
         this.player.play('fly' + '-' + playerDirection, true);
 
+        this.glasses.update();
 
-    }
-
-
-    addItem(itemName) {
-        //get a random x coordinate to spawn the item
-        let xSpawn = Phaser.Math.Between(50,450)
-
-        //spawn item at the bottom of the screen
-        this.coolItem = this.physics.add.sprite(xSpawn, gameHeight+ 5, itemName).setScale(1);
-       
-        //set the hit box to custom size
-        this.coolItem.body.setSize(26, 10);
-  
-        //sett the velocity of the object
-        this.coolItem.setVelocityY(-this.OBJECT_VELOCITY);
-        
-        //set the items to be immovable
-        this.coolItem.body.setImmovable(true);
-
+        this.barrier.update();
 
 
     }
 
-    addBarrier(barrierName) {
-        //get a random x coordinate to spawn the item
-        let xSpawn = Phaser.Math.Between(90, 410);
 
-        //spawn barrier at the bottom of the screen
-        this.barrier = this.physics.add.sprite(xSpawn, gameHeight, barrierName).setScale(.75);
 
-        //set the hit box to custom size
-        this.barrier.body.setSize(90, 25);
-        //set velocity of the barrier
-        this.barrier.setVelocityY(-this.BARRIER_VELOCITY);
 
-        //set the barriers to be immovable
-        this.barrier.body.setImmovable(true);
-    }
-
-    
-
-    
 }
