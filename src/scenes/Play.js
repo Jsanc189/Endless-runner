@@ -74,6 +74,27 @@ class Play extends Phaser.Scene{
             })
         })
 
+        //score text set up
+        let scoreConfig = {
+            fontFamily: 'Courier',
+            fontSize: '30px',
+            backgroundColor: '#F3B141',
+            color:'#1F1FC7',
+            align: 'left',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 200
+        }
+
+        this.score = 0;
+
+
+        this.scoreText = this.add.text(100, gameHeight - 15, 
+            ' Score: ' + this.score.toString(), scoreConfig).setOrigin(0.5);
+        //this.scoreText.visible = false;
+
 
         //add glasses to the field
         this.glasses = new Items(this, Phaser.Math.Between(50, 450), gameHeight, 'sunglasses', -this.OBJECT_VELOCITY, gameHeight);
@@ -81,8 +102,14 @@ class Play extends Phaser.Scene{
         //add barrier to the field
         this.barrier = new Barriers(this, Phaser.Math.Between(50, 450), gameHeight, 'stink', -this.BARRIER_VELOCITY, gameHeight);
 
+        //add collision to the glasses item and resets the glasses
+        this.physics.add.collider(this.player, this.glasses, (glasses) =>{
+            this.glasses.reset();
+            this.score += 1;
+            this.scoreText.text = ' Score: ' + this.score.toString();
+        });
         
-        
+
         
     }
 
