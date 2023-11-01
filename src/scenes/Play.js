@@ -108,6 +108,11 @@ class Play extends Phaser.Scene{
             this.score += 1;
             this.scoreText.text = ' Score: ' + this.score.toString();
         });
+
+        this.physics.add.collider(this.player, this.barrier, () => {
+            this.scene.start('endingScene');
+        });
+            
         
 
         

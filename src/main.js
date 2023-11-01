@@ -23,7 +23,7 @@ let config = {
             }
         }
     },
-    scene: [Load, Menu, Play]
+    scene: [Load, Menu, Play, Ending]
 }
 
 let keyLEFT, keyRIGHT, keySPACE;
