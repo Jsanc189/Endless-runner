@@ -44,3 +44,7 @@ let gameHeight = game.config.height;
 //to allow for cursor (arrow key movment)
 let cursors;
 let playerDirection = 'down'
+
+//set a global variable to hold player scores
+let playScore;
+let highScore = 0;

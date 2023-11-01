@@ -110,6 +110,10 @@ class Play extends Phaser.Scene{
         });
 
         this.physics.add.collider(this.player, this.barrier, () => {
+            playScore = this.score;
+            if(this.score > highScore) {
+                highScore = this.score;
+            }
             this.scene.start('endingScene');
         });
             

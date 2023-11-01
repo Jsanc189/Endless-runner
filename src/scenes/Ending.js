@@ -20,19 +20,22 @@ class Ending extends Phaser.Scene{
             fixedWidth: 450
         }
             this.game_over_message = this.add.text(gameWidth / 2, gameHeight / 2, 
-            'Game Over!  Score: ' + this.endingScore.toString(), endingConfig). setOrigin(0.5);
+            'Game Over!  Score: ' + playScore.toString(), endingConfig). setOrigin(0.5);
 
 
             this.restart_message = this.add.text(gameWidth /2, gameHeight / 3 * 2, 
             'Press <- to Retry or -> for Menu', endingConfig).setOrigin(0.5);
         
+            //define left and right keys
+            keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+            keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
     }
 
     update() {
-        if(cursors.left.isDown) {
+        if(Phaser.Input.Keyboard.JustDown(keyLEFT)) {
             this.scene.start('playScene');
         }
-        else if(cursors.right.isDown) {
+        else if(Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
             this.scene.start('menuScene');
         }
     }
