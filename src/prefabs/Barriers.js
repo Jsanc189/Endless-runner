@@ -8,9 +8,16 @@ class Barriers extends Phaser.Physics.Arcade.Sprite {
         this.parentScene.physics.add.existing(this);
         this.setVelocityY(velocity);
         this.setImmovable(true);
+        this.height = gameHeight;
+        this.childBarrier = true;
     }
 
     update() {
+        //add new barriers
+        if(this.childBarrier && this.y < gameHeight/6 * 2) {
+            this.parentScene.addBarrier(this.parentScene, this.setVelocityY);
+            this.childBarrier = false
+        }
         if(this.y < -this.height) {
             this.destroy();
         }
@@ -18,6 +25,6 @@ class Barriers extends Phaser.Physics.Arcade.Sprite {
 
     reset() {
         this.x = Phaser.Math.Between(50, 450);
-        this.y = gameHeight;
+        this.y = this.gameHeight;
     }
 }

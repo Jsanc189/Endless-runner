@@ -14,6 +14,8 @@ class Play extends Phaser.Scene{
         });
         this.bgmusic.play();
 
+        this.gameOver = false;
+
         //add the background
         this.sky = this.add.tileSprite(0,0, 500, 700, 'background').setOrigin(0,0);
 
@@ -88,6 +90,7 @@ class Play extends Phaser.Scene{
             fixedWidth: 200
         }
 
+        playScore = 0;
         this.score = 0;
 
 
@@ -99,8 +102,19 @@ class Play extends Phaser.Scene{
         //add glasses to the field
         this.glasses = new Items(this, Phaser.Math.Between(50, 450), gameHeight, 'sunglasses', -this.OBJECT_VELOCITY, gameHeight);
 
+        //make a group of barriers
+        this.barrier_group = this.add.group({
+            //makes sure the update loop also runs on new additions to group
+            runChildUpdate: true
+        })
+
+        //wait some time to spawn barriers
+        this.time.delayedCall(2000, () => {
+            this.addBarrier();
+        })
+        
         //add barrier to the field
-        this.barrier = new Barriers(this, Phaser.Math.Between(50, 450), gameHeight, 'stink', -this.BARRIER_VELOCITY, gameHeight);
+        //this.barrier = new Barriers(this, Phaser.Math.Between(50, 450), gameHeight, 'stink', -this.BARRIER_VELOCITY, gameHeight);
 
         //add collision to the glasses item and resets the glasses
         this.physics.add.collider(this.player, this.glasses, (glasses) =>{
@@ -109,44 +123,52 @@ class Play extends Phaser.Scene{
             this.scoreText.text = ' Score: ' + this.score.toString();
         });
 
-        this.physics.add.collider(this.player, this.barrier, () => {
-            playScore = this.score;
-            if(this.score > highScore) {
-                highScore = this.score;
-            }
-            this.scene.start('endingScene');
-        });
-            
-        
 
-        
+               
     }
 
+    addBarrier() {
+        let barrier = new Barriers(this, Phaser.Math.Between(50, 450), gameHeight, 'stink', -this.BARRIER_VELOCITY, gameHeight);
+        this.barrier_group.add(barrier);
+    }
 
     update() {
-        let playerVector = new Phaser.Math.Vector2(0,0);
-        this.sky.tilePositionY += 4;
+        if (!this.gameOver) {
+            let playerVector = new Phaser.Math.Vector2(0,0);
+            this.sky.tilePositionY += 4;
 
-        if(cursors.left.isDown) {
-            playerVector.x = -1;
-            playerDirection = 'left';
+            if(cursors.left.isDown) {
+                playerVector.x = -1;
+                playerDirection = 'left';
+            }
+            else if(cursors.right.isDown) {
+                playerVector.x = 1;
+                playerDirection = 'right';
+            }
+            else{
+                playerVector.x = 0;
+                playerDirection = 'down';
+            }
+
+            this.player.setVelocity(this.PLAYER_VELOCITY * playerVector.x, this.PLAYER_VELOCITY * 0);
+
+            this.player.play('fly' + '-' + playerDirection, true);
+
+            this.glasses.update();
+
+            this.physics.world.collide(this.player, this.barrier_group, () => {
+                this.gameOver = true;
+            });
         }
-        else if(cursors.right.isDown) {
-            playerVector.x = 1;
-            playerDirection = 'right';
-        }
+
         else{
-            playerVector.x = 0;
-            playerDirection = 'down';
+            playScore = this.score;
+                if(this.score > highScore) {
+                    highScore = this.score;
+                }
+                this.bgmusic.stop();
+                this.scene.start('endingScene');
         }
-
-        this.player.setVelocity(this.PLAYER_VELOCITY * playerVector.x, this.PLAYER_VELOCITY * 0);
-
-        this.player.play('fly' + '-' + playerDirection, true);
-
-        this.glasses.update();
-
-        this.barrier.update();
 
 
     }
