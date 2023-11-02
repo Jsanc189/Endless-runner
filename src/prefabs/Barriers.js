@@ -16,7 +16,7 @@ class Barriers extends Phaser.Physics.Arcade.Sprite {
         //add new barriers
         if(this.childBarrier && this.y < gameHeight/6 * 2) {
             this.parentScene.addBarrier(this.parentScene, this.setVelocityY);
-            this.childBarrier = false
+            this.childBarrier = false;
         }
         if(this.y < -this.height) {
             this.destroy();

@@ -15,6 +15,7 @@ class Play extends Phaser.Scene{
         this.bgmusic.play();
 
         this.gameOver = false;
+        this.speedy = true;
 
         //add the background
         this.sky = this.add.tileSprite(0,0, 500, 700, 'background').setOrigin(0,0);
@@ -92,6 +93,7 @@ class Play extends Phaser.Scene{
 
         playScore = 0;
         this.score = 0;
+        this.tracker = 0;
 
 
         this.scoreText = this.add.text(100, gameHeight - 15, 
@@ -100,7 +102,7 @@ class Play extends Phaser.Scene{
 
 
         //add glasses to the field
-        this.glasses = new Items(this, Phaser.Math.Between(50, 450), gameHeight, 'sunglasses', -this.OBJECT_VELOCITY, gameHeight);
+        //this.glasses = new Items(this, Phaser.Math.Between(50, 450), gameHeight, 'sunglasses', -this.OBJECT_VELOCITY, gameHeight);
 
         //make a group of barriers
         this.barrier_group = this.add.group({
@@ -108,20 +110,26 @@ class Play extends Phaser.Scene{
             runChildUpdate: true
         })
 
+        //make a group of cool items
+        this.item_group = this.add.group({
+            runChildUpdate: true
+        })
+
         //wait some time to spawn barriers
-        this.time.delayedCall(2000, () => {
+        this.time.delayedCall(500, () => {
             this.addBarrier();
+            this.addItem();
         })
         
         //add barrier to the field
         //this.barrier = new Barriers(this, Phaser.Math.Between(50, 450), gameHeight, 'stink', -this.BARRIER_VELOCITY, gameHeight);
 
         //add collision to the glasses item and resets the glasses
-        this.physics.add.collider(this.player, this.glasses, (glasses) =>{
-            this.glasses.reset();
-            this.score += 1;
-            this.scoreText.text = ' Score: ' + this.score.toString();
-        });
+        // this.physics.add.collider(this.player, this.glasses, (glasses) =>{
+        //     this.glasses.reset();
+        //     this.score += 1;
+        //     this.scoreText.text = ' Score: ' + this.score.toString();
+        // });
 
 
                
@@ -130,6 +138,13 @@ class Play extends Phaser.Scene{
     addBarrier() {
         let barrier = new Barriers(this, Phaser.Math.Between(50, 450), gameHeight, 'stink', -this.BARRIER_VELOCITY, gameHeight);
         this.barrier_group.add(barrier);
+    }
+
+
+    addItem() {
+        let itemList = ['sunglasses', 'shirt', 'hat']
+        let item = new Items(this,Phaser.Math.Between(50, 450), gameHeight, itemList[Phaser.Math.Between(0,2)], -this.OBJECT_VELOCITY, gameHeight);
+        this.item_group.add(item);
     }
 
     update() {
@@ -150,11 +165,27 @@ class Play extends Phaser.Scene{
                 playerDirection = 'down';
             }
 
+            if(this.score % 2 == 0 && this.score != 0  && this.speedy == true){
+                this.speedy = false;
+                this.speedUp();
+                this.tracker = this.score;
+            }
+            //console.log(this.BARRIER_VELOCITY);
+
+            if(this.tracker != 0 && this.score > this.tracker) {
+                this.tracker = 0;
+                this.speedy = true;
+            }
+
+
             this.player.setVelocity(this.PLAYER_VELOCITY * playerVector.x, this.PLAYER_VELOCITY * 0);
 
             this.player.play('fly' + '-' + playerDirection, true);
 
-            this.glasses.update();
+            this.physics.world.collide(this.player, this.item_group, () => {
+                this.score += 1;
+                this.scoreText.text = ' Score: ' + this.score.toString();
+            });
 
             this.physics.world.collide(this.player, this.barrier_group, () => {
                 this.gameOver = true;
@@ -171,6 +202,13 @@ class Play extends Phaser.Scene{
         }
 
 
+    }
+
+    speedUp() {
+        this.OBJECT_VELOCITY += 30;
+        this.BARRIER_VELOCITY += 30;
+        console.log("Barrier speed" + this.BARRIER_VELOCITY.toString());
+        console.log("Object Speed" + this.OBJECT_VELOCITY.toString());   
     }
 
 

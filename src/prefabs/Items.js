@@ -9,12 +9,18 @@ class Items extends Phaser.Physics.Arcade.Sprite {
         this.parentScene.physics.add.existing(this);
         this.setVelocityY(velocity);
         this.setImmovable(true);
+        this.childItem = true;
         
     }
 
     update() {
+        //add new items
+        if(this.childItem && this.y < gameHeight / 3 * 2) {
+            this.parentScene.addItem(this.parentScene, this.setVelocityY)
+            this.childItem = false;
+        }
         if(this.y < -this.height) {
-            this.reset();
+            this.destroy();
         }
     }
 
