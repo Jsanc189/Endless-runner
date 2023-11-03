@@ -98,6 +98,8 @@ class Play extends Phaser.Scene{
 
         this.scoreText = this.add.text(100, gameHeight - 15, 
             ' Score: ' + this.score.toString(), scoreConfig).setOrigin(0.5);
+
+        this.scoreText.depth = 1;
         //this.scoreText.visible = false;
 
 
@@ -182,7 +184,8 @@ class Play extends Phaser.Scene{
 
             this.player.play('fly' + '-' + playerDirection, true);
 
-            this.physics.world.collide(this.player, this.item_group, () => {
+            this.physics.world.collide(this.player, this.item_group, (player, item) => {
+                item.destroy();
                 this.score += 1;
                 this.sound.play('score');
                 this.scoreText.text = ' Score: ' + this.score.toString();

@@ -23,10 +23,10 @@ let config = {
             }
         }
     },
-    scene: [Load, Menu, Play, Ending]
+    scene: [Load, Menu, Play, Ending, Credits]
 }
 
-let keyLEFT, keyRIGHT, keySPACE;
+let keyLEFT, keyRIGHT, keySPACE, keyUP;
 
 let game  = new Phaser.Game(config);
 
