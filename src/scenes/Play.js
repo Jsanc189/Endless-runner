@@ -200,7 +200,7 @@ class Play extends Phaser.Scene{
                 this.bgmusic.stop();
                 this.scene.start('endingScene');
         }
-
+         console.log(this.BARRIER_VELOCITY);
 
     }
 
