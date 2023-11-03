@@ -184,6 +184,7 @@ class Play extends Phaser.Scene{
 
             this.physics.world.collide(this.player, this.item_group, () => {
                 this.score += 1;
+                this.sound.play('score');
                 this.scoreText.text = ' Score: ' + this.score.toString();
             });
 
@@ -198,6 +199,7 @@ class Play extends Phaser.Scene{
                     highScore = this.score;
                 }
                 this.bgmusic.stop();
+                this.sound.play('hurt');
                 this.scene.start('endingScene');
         }
          console.log(this.BARRIER_VELOCITY);

@@ -46,6 +46,13 @@ class Load extends Phaser.Scene{
 
         //music
         this.load.audio('bg_music', './assets/A_Bit_Of_Hope.mp3');
+
+        //sfx
+        this.load.audio('selection', './assets/select.wav');
+        this.load.audio('hurt', './assets/hitHurt.wav');
+        this.load.audio('score', './assets/score.wav');
+        this.load.audio('click', './assets/click.wav');
+        this.load.audio('click_2', './assets/click2.wav');
     }
 
     create() {

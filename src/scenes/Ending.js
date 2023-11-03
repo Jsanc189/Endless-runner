@@ -33,9 +33,11 @@ class Ending extends Phaser.Scene{
 
     update() {
         if(Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+            this.sound.play('click_2');
             this.scene.start('playScene');
         }
         else if(Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
+            this.sound.play('click');
             this.scene.start('menuScene');
         }
     }
