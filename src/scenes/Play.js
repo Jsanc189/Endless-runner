@@ -81,7 +81,7 @@ class Play extends Phaser.Scene{
         //score text set up
         let scoreConfig = {
             fontFamily: 'Courier',
-            fontSize: '30px',
+            fontSize: '25px',
             backgroundColor: '#170C6D',
             color:'#FFFFFF',
             align: 'left',
@@ -89,7 +89,7 @@ class Play extends Phaser.Scene{
                 top: 5,
                 bottom: 5,
             },
-            fixedWidth: 200
+            fixedWidth: 300
         }
 
         playScore = 0;
@@ -97,8 +97,8 @@ class Play extends Phaser.Scene{
         this.tracker = 0;
 
 
-        this.scoreText = this.add.text(100, gameHeight - 15, 
-            ' Score: ' + this.score.toString(), scoreConfig).setOrigin(0.5); 
+        this.scoreText = this.add.text(150, gameHeight - 15, 
+            ' Style Points: ' + this.score.toString(), scoreConfig).setOrigin(0.5); 
         this.scoreText.depth = 1;
 
         let instructConfig = {
@@ -141,6 +141,7 @@ class Play extends Phaser.Scene{
 
     addBarrier() {
         let barrier = new Barriers(this, Phaser.Math.Between(50, 450), gameHeight, 'stink', -this.BARRIER_VELOCITY, gameHeight);
+        //this.barrier.body.setSize(90,30)
         this.barrier_group.add(barrier);
     }
 
@@ -181,18 +182,6 @@ class Play extends Phaser.Scene{
                 this.speedy = true;
             }
 
-            if(this.score == 10){
-                this.char_state = '2';
-            };
-
-            if(this.score == 20){
-
-            };
-
-            if(this.score == 30){
-
-            };
-
 
             this.player.setVelocity(this.PLAYER_VELOCITY * playerVector.x, this.PLAYER_VELOCITY * 0);
 
@@ -202,7 +191,7 @@ class Play extends Phaser.Scene{
                 item.destroy();
                 this.score += 1;
                 this.sound.play('score');
-                this.scoreText.text = ' Score: ' + this.score.toString();
+                this.scoreText.text = ' Style Points: ' + this.score.toString();
                 
             });
 
@@ -213,8 +202,8 @@ class Play extends Phaser.Scene{
 
         else{
             playScore = this.score;
-                if(this.score > highScore) {
-                    highScore = this.score;
+                if(this.score > localStorage.getItem("FallingWithStyleHighScore")) {
+                    localStorage.setItem('FallingWithStyleHighScore', this.score);
                 }
                 this.bgmusic.stop();
                 this.sound.play('hurt');

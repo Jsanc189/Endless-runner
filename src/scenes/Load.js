@@ -44,11 +44,6 @@ class Load extends Phaser.Scene{
             frameHeight: 64,
         });
 
-        this.load.spritesheet('character2', './assets/sunny-stick-sheet.png',{
-            frameWidth: 32,
-            frameHeight: 64,
-        });
-
 
         //music
         this.load.audio('bg_music', './assets/A_Bit_Of_Hope.mp3');

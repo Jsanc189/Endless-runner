@@ -20,7 +20,8 @@ class Ending extends Phaser.Scene{
             fixedWidth: 450
         }
             this.game_over_message = this.add.text(gameWidth / 2, gameHeight / 2, 
-            'Game Over!  Score: ' + playScore.toString(), endingConfig). setOrigin(0.5);
+            'Game Over!  Style Points: ' + playScore.toString() + '\nMost Stylish: ' + localStorage.getItem("FallingWithStyleHighScore").toString(),
+            endingConfig). setOrigin(0.5);
 
 
             this.restart_message = this.add.text(gameWidth /2, gameHeight / 3 * 2, 
