@@ -13,6 +13,7 @@ class Play extends Phaser.Scene{
             loop: true
         });
         this.bgmusic.play();
+        this.char_state = '1'
 
         this.gameOver = false;
         this.speedy = true;
@@ -21,7 +22,7 @@ class Play extends Phaser.Scene{
         this.sky = this.add.tileSprite(0,0, 500, 700, 'background').setOrigin(0,0);
 
         //add the sprite to the world using the 0th frame of the sprite sheet
-        this.player = this.physics.add.sprite(gameWidth / 2, gameHeight /10, 'character', 0).setScale(1.5);
+        this.player = this.physics.add.sprite(gameWidth / 2, gameHeight /10, 'character1', 0).setScale(1.5);
         
         //set the player to not be able to go out of bounds
         this.player.body.setCollideWorldBounds(true);
@@ -49,7 +50,7 @@ class Play extends Phaser.Scene{
             key: 'fly-down',
             frameRate: 0,
             repeat: -1,
-            frames: this.anims.generateFrameNumbers('character', {
+            frames: this.anims.generateFrameNumbers('character' + this.char_state, {
                 start: 0,
                 end: 0
             })
@@ -60,7 +61,7 @@ class Play extends Phaser.Scene{
             key: 'fly-left',
             frameRate: 0,
             repeat: -1,
-            frames: this.anims.generateFrameNumbers('character', {
+            frames: this.anims.generateFrameNumbers('character' + this.char_state, {
                 start: 1,
                 end: 1
             })
@@ -71,7 +72,7 @@ class Play extends Phaser.Scene{
             key: 'fly-right',
             frameRate: 0,
             repeat: -1,
-            frames: this.anims.generateFrameNumbers('character', {
+            frames: this.anims.generateFrameNumbers('character' + this.char_state, {
                 start: 2,
                 end: 2
             })
@@ -81,8 +82,8 @@ class Play extends Phaser.Scene{
         let scoreConfig = {
             fontFamily: 'Courier',
             fontSize: '30px',
-            backgroundColor: '#F3B141',
-            color:'#1F1FC7',
+            backgroundColor: '#170C6D',
+            color:'#FFFFFF',
             align: 'left',
             padding: {
                 top: 5,
@@ -97,14 +98,25 @@ class Play extends Phaser.Scene{
 
 
         this.scoreText = this.add.text(100, gameHeight - 15, 
-            ' Score: ' + this.score.toString(), scoreConfig).setOrigin(0.5);
-
+            ' Score: ' + this.score.toString(), scoreConfig).setOrigin(0.5); 
         this.scoreText.depth = 1;
-        //this.scoreText.visible = false;
 
-
-        //add glasses to the field
-        //this.glasses = new Items(this, Phaser.Math.Between(50, 450), gameHeight, 'sunglasses', -this.OBJECT_VELOCITY, gameHeight);
+        let instructConfig = {
+            fontFamily: 'Courier',
+            fontSize: '20px',
+            backgroundColor: '#170C6D',
+            color:'#FFFFFF',
+            align: 'center',
+            padding: {
+                top: 5,
+                bottom: 5,
+            },
+            fixedWidth: 600
+        }
+        this.instructions = this.add.text(265, gameHeight - 65,
+            'Use left or right keys to collect items.  \nAvoid barriers!',
+            instructConfig).setOrigin(0.5);
+        this.instructions.depth = 1;
 
         //make a group of barriers
         this.barrier_group = this.add.group({
@@ -122,16 +134,6 @@ class Play extends Phaser.Scene{
             this.addBarrier();
             this.addItem();
         })
-        
-        //add barrier to the field
-        //this.barrier = new Barriers(this, Phaser.Math.Between(50, 450), gameHeight, 'stink', -this.BARRIER_VELOCITY, gameHeight);
-
-        //add collision to the glasses item and resets the glasses
-        // this.physics.add.collider(this.player, this.glasses, (glasses) =>{
-        //     this.glasses.reset();
-        //     this.score += 1;
-        //     this.scoreText.text = ' Score: ' + this.score.toString();
-        // });
 
 
                
@@ -179,6 +181,18 @@ class Play extends Phaser.Scene{
                 this.speedy = true;
             }
 
+            if(this.score == 10){
+                this.char_state = '2';
+            };
+
+            if(this.score == 20){
+
+            };
+
+            if(this.score == 30){
+
+            };
+
 
             this.player.setVelocity(this.PLAYER_VELOCITY * playerVector.x, this.PLAYER_VELOCITY * 0);
 
@@ -189,6 +203,7 @@ class Play extends Phaser.Scene{
                 this.score += 1;
                 this.sound.play('score');
                 this.scoreText.text = ' Score: ' + this.score.toString();
+                
             });
 
             this.physics.world.collide(this.player, this.barrier_group, () => {
