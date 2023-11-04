@@ -24,19 +24,19 @@ class Ending extends Phaser.Scene{
 
 
             this.restart_message = this.add.text(gameWidth /2, gameHeight / 3 * 2, 
-            'Press <- to Retry or -> for Menu', endingConfig).setOrigin(0.5);
+            'Press R to Retry or M for Menu', endingConfig).setOrigin(0.5);
         
             //define left and right keys
-            keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-            keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+            keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
+            keyM = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.M);
     }
 
     update() {
-        if(Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+        if(Phaser.Input.Keyboard.JustDown(keyR)) {
             this.sound.play('click_2');
             this.scene.start('playScene');
         }
-        else if(Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
+        else if(Phaser.Input.Keyboard.JustDown(keyM)) {
             this.sound.play('click');
             this.scene.start('menuScene');
         }

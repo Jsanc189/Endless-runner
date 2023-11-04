@@ -26,7 +26,7 @@ let config = {
     scene: [Load, Menu, Play, Ending, Credits]
 }
 
-let keyLEFT, keyRIGHT, keySPACE, keyUP;
+let keyLEFT, keyRIGHT, keySPACE, keyUP, keyM, keyR;
 
 let game  = new Phaser.Game(config);
 
