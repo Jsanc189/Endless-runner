@@ -41,17 +41,17 @@ class Credits extends Phaser.Scene{
 
 
         this.spriteCred = this.add.text(gameWidth /2, gameHeight / 7 * 3, 
-        'SPRITE ART:\t\t\t\t\tJACKIE SANCHEZ', smallCreditConfig).setOrigin(0.5);
+        'SPRITE ART:\t\t\t\tJACKIE SANCHEZ', smallCreditConfig).setOrigin(0.5);
         
 
         this.sceneCred = this.add.text(gameWidth / 2, gameHeight / 7 * 3 + 40, 
-        'SETTING ART:    JACKIE SANCHEZ\nSFX:\t\t\t\t\t\t\t\t\t\t  JACKIE SANCHEZ', smallCreditConfig).setOrigin(0.5);
+        'SETTING ART:   JACKIE SANCHEZ\nSFX:\t\t\t\t\t\t\t\t\t\t JACKIE SANCHEZ', smallCreditConfig).setOrigin(0.5);
 
         this.musicCred = this.add.text(gameWidth / 2, gameHeight / 7 * 3 + 100,
-        'MUSIC:    \t\t\t\t\t "A bit of Hope" \nBY:\t\t\t\t\t\t\t\t\t\t\t  DAVID FELIYAN', smallCreditConfig).setOrigin(0.5);
+        'MUSIC:    \t\t\t\t\t"A bit of Hope" \nBY:\t\t\t\t\t\t\t\t\t\t\t  DAVID FELIYAN', smallCreditConfig).setOrigin(0.5);
 
         this.levelCred = this.add.text(gameWidth / 2, gameHeight / 7 * 3 + 160,
-        'LEVEL DESIGN:   JACKIE SANCHEZ', smallCreditConfig).setOrigin(0.5);
+        'LEVEL DESIGN:  JACKIE SANCHEZ', smallCreditConfig).setOrigin(0.5);
 
 
         this.goToMenu = this.add.text(gameWidth / 2, gameHeight / 7 * 6,
