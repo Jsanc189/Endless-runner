@@ -5,6 +5,8 @@
 // music: Background music via https://www.FesliyanStudios.com 
 //  "A Bit of Hope" by David Fesliyan
 
+// approx hours spent on project: 20 - 25 hours
+
 // technically interesting: implemented a high score to be stored on personal device that it is played on.  
 // Style: I am particularly proud of being able to make an array of objects for "style points" that
 //  spawned randomly and were either destroyed by the player collecting them, or the items reaching the end
